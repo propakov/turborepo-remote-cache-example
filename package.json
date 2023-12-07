@@ -2,7 +2,8 @@
   "name": "my-turborepo",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "turborepo-remote-cache": "bash ./lunch_daemon.sh",
+    "build": "concurrently --success first --kill-others \"npm run turborepo-remote-cache\" \"turbo build --remote-only\"",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -11,7 +12,9 @@
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "prettier": "^3.1.0",
-    "turbo": "latest"
+    "turbo": "latest",
+    "turborepo-remote-cache": "^2.0.8",
+    "concurrently": "7.6.0"
   },
   "packageManager": "npm@8.19.3",
   "workspaces": [
